@@ -1,7 +1,7 @@
-##Task 1
+## Task 1
 For the first task, you just need to run solution.py in the task1 folder
 
-##Task 2
+## Task 2
 For the second task, you need to run solution.py in the task2 folder
 in my case in pycharm I choose terminal
 
