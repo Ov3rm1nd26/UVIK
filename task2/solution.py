@@ -6,7 +6,7 @@ from typing import List, Optional
 from rich.console import Console
 from rich.table import Table
 from model import Todo
-from database import get_all_todos, delete_todo, insert_todo, complete_todo, count_completed
+from database import get_all_todos, delete_todo, insert_todo, complete_todo, count_completed, uncompleted_todo
 
 
 console = Console()
@@ -38,9 +38,16 @@ def remove(positions: Optional[List[int]] = typer.Option(None)):
 
 
 @app.command(short_help='mark item as done')
-def mark(position: int):
+def mark_done(position: int):
     typer.echo(f'mark position {position} as done')
     complete_todo(position - 1)
+    show()
+
+
+@app.command(short_help='mark item as uncompleted')
+def mark_uncompleted(position: int):
+    typer.echo(f'mark position {position} as uncompleted')
+    uncompleted_todo(position - 1)
     show()
 
 
@@ -48,7 +55,7 @@ def mark(position: int):
 def show():
     tasks = get_all_todos()
     number_of_done = count_completed()
-    console.print(f"{datetime.datetime.now().replace(second=0, microsecond=0)} you've completed {number_of_done[0][0]} tasks!")
+    console.print(f"{datetime.datetime.now().replace(microsecond=0)} you've completed {number_of_done[0][0]} tasks!")
 
     table = Table(show_header=True, header_style='bold white')
     table.add_column('№', style='bold white', width=6)
