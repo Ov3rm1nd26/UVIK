@@ -62,6 +62,12 @@ def complete_todo(position: int):
                   {'position': position, 'date_completed': datetime.datetime.now().isoformat()})
 
 
+def uncompleted_todo(position: int):
+    with conn:
+        c.execute('UPDATE todos SET status = 1, date_completed = :date_completed WHERE position = :position',
+                  {'position': position, 'date_completed': datetime.datetime.now().isoformat()})
+
+
 def count_completed():
     with conn:
         c.execute('select count(*) status from todos WHERE status = 2')
